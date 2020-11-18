@@ -1,0 +1,26 @@
+* {
+    margin:0;
+    padding: 0;
+}
+
+header {
+    background-color: #61ad05;
+    height: 50px;
+}
+
+
+header li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+header > nav {
+    text-align: right;
+    padding: 15px;
+}
+
+header > div {
+    display: inline-block;
+    float: left;
+    padding: 15px;
+}

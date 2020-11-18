@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>da blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header>
+       <h1>DA' BLOG</h1>
+   </header>
+   <div id="new-post">
+        <h2>Add new post</h2>
+        <div id="post-title">
+            <p>Title</p>
+            <input id="new-title" type="text" value="">
+        </div>
+        <div id="post-content">
+            <p>Content</p>
+            <textarea id="new-content"></textarea>
+        </div>
+        <button id="submit">Submit</button>
+    </div>
+    <div id="post-list">
+        <h2>Posts</h2>
+        <div class="post">
+            <h3>Lorem ipsum dolor sit amet</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil molestiae eum voluptatibus magni repellat architecto, repudiandae facere iure ut laborum repellendus sunt quisquam assumenda reprehenderit autem totam aliquid sapiente? Ex?
+            </p>
+        </div>
+        <div class="post">
+            <h3>Lorem ipsum dolor sit amet</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil molestiae eum voluptatibus magni repellat architecto, repudiandae facere iure ut laborum repellendus sunt quisquam assumenda reprehenderit autem totam aliquid sapiente? Ex?
+            </p>
+        </div>
+    </div>
+
+<script>
+let submit = document.getElementById('submit')
+let postList = document.getElementById('post-list')
+
+submit.onclick =function() {
+    let postTitle = document.getElementById('new-title').value
+    let postContent = document.getElementById('new-content').value;
+    let newDiv = document.createElement('div')
+    postList.appendChild(newDiv)
+    newDiv.className="post";
+    let newPostTitle = document.createElement('h3')
+    newDiv.appendChild(newPostTitle)
+    newPostTitle.textContent = postTitle
+    let newPostContent = document.createElement('p')
+    newDiv.appendChild(newPostContent)
+    newPostContent.textContent = postContent;
+
+    document.getElementById('new-title').value = '';
+    document.getElementById('new-content').value = '';
+}
+</script>
+</body>
+</html>
