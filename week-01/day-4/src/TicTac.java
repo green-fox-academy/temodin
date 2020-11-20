@@ -38,7 +38,7 @@ public class TicTac {
             userBCoordinateB = scanner.nextInt();}
         while (userACoordinateB < 1 || userBCoordinateB > 3);
 
-        
+
 
         System.out.println(userACoordinateA);
         System.out.println(userACoordinateB);
