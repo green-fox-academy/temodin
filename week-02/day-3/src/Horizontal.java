@@ -3,34 +3,26 @@ import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class GoToCenter {
 
-    public static void drawLine (int xPoint, int yPoint, Graphics graphics)
+
+public class Horizontal {
+
+    public static void drawHorizontal (int pointX, int pointY, Graphics graphics)
     {
-        int randomR = (int) (Math.random()*256);
-        int randomG = (int) (Math.random()*256);
-        int randomB = (int) (Math.random()*256);
-        graphics.setColor(new Color(randomR,randomB,randomG));
-       graphics.drawLine(xPoint,yPoint,HEIGHT/2,WIDTH/2);
-
-
-
-    }
+        graphics.drawLine(pointX,pointY,pointX+50,pointY);
+    };
 
     public static void mainDraw(Graphics graphics){
         // Create a function that draws a single line and takes 3 parameters:
         // The x and y coordinates of the line's starting point and the graphics
-        // and draws a line from that point to the center of the canvas.
+        // and draws a 50 long horizontal line from that point.
         // Draw at least 3 lines with that function using a loop.
 
         for (int i = 0; i < 30000; i++) {
             int randomNumA = (int) (Math.random()*801);
             int randomNumB = (int) (Math.random()*801);
-            drawLine(randomNumA,randomNumB,graphics);
-
+            drawHorizontal(randomNumA,randomNumB,graphics);
         }
-
-
 
     }
 
