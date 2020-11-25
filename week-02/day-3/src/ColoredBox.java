@@ -4,13 +4,23 @@ import java.awt.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class ColoredBox {
-    public static void mainDraw(Graphics graphics){
+    public static void mainDraw(Graphics graphics) {
+        // Draw a box that has different colored lines on each edge.
+        graphics.setColor(Color.BLUE);
+        graphics.drawLine(100, 100, 600, 100); //top
+        graphics.setColor(Color.RED);
+        graphics.drawLine(100, 100, 100, 600); //left
+        graphics.setColor(Color.GREEN);
+        graphics.drawLine(100, 600, 600, 600); //bottom
+        graphics.setColor(Color.cyan);
+        graphics.drawLine(600, 100, 600, 600); //right
+
 
     }
 
     // Don't touch the code below
-    static int WIDTH = 320;
-    static int HEIGHT = 320;
+    static int WIDTH = 800;
+    static int HEIGHT = 800;
 
     public static void main(String[] args) {
         JFrame jFrame = new JFrame("Drawing");
