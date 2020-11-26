@@ -15,18 +15,20 @@ public class Triangles {
 
     public static void mainDraw(Graphics graphics){
 
+        //declaration and definition of starting point and size
         int side = 30;
         int topX = WIDTH/2;
         int topY = 100;
         int height = (int) (0.5*Math.sqrt(3)*side);
 
+        //loop to draw the triangles
         for (int i = 1; i < 20; i++) {
             for (int j = 0; j < i; j++) {
                 drawETriangle(side,topX,topY,height,graphics);
-                if(j != (i-1)) {topX += side;};
+                if(j != (i-1)) {topX += side;}; //if last triangle in the row, dont step to the right anymore
             }
-            topY += height;
-            topX = (WIDTH/2) - i * side/2;
+            topY += height; //go down at the end of row by triangle height
+            topX = (WIDTH/2) - i * side/2; //go left at the end of the row. start from the middle and go i * side/2
         }
         /*
         int[] x = {topX, topX - side / 2, topX + side / 2};
