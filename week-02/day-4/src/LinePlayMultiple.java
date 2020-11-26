@@ -38,7 +38,7 @@ public class LinePlayMultiple {
     public static void mainDraw(Graphics graphics){
 
         //setting basic variables
-        int splitInto = 16; //user input, how many tiles are to be drawn
+        int splitInto = 512; //user input, how many tiles are to be drawn
         int rectMulti = (int)Math.sqrt(splitInto); // how many tiles on each side
         int tileHeight = HEIGHT/(rectMulti); //height of a single tile
         int tileWidth = WIDTH/(rectMulti); //width of a single tile
