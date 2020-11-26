@@ -1,49 +1,95 @@
 import java.util.Scanner;
 
 public class TicTac {
-    public static void main(String[] args) {
 
+    public static void drawBoard (String[][] board) {
         //draw board
-        for (int i = 1; i < 4; i++) {
-            for (int j = 1; j < 4; j++) {
-                System.out.print("L ");
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                System.out.print(board[i][j]+ " ");
             }
             System.out.println();
+            System.out.println();
         }
+    }
+
+    public static boolean checkGameEnd (String[][] board) {
+        //check rows
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][0] == board[i][1] && board[i][0] == board[i][2]) {
+                return true;
+            }
+        }
+        //check columns
+        for (int i = 0; i < board.length; i++) {
+            if (board[0][i] == board[1][i] && board[0][i] == board[2][i]) {
+                return true;
+            }
+        }
+        //check diagonals
+        if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public static void main(String[] args) {
+
+        String[][] board = {
+                {"[ ]","[ ]","[ ]"},
+                {"[ ]","[ ]","[ ]"},
+                {"[ ]","[ ]","[ ]"}
+        };
+
+        drawBoard(board);
 
         //set up scanner and variables
         Scanner scanner = new Scanner(System.in);
-        int userACoordinateA;
-        int userACoordinateB;
-        int userBCoordinateA;
-        int userBCoordinateB;
+        int coordinateA;
+        int coordinateB;
+
 
         //get coordinates
         //userA
-        System.out.println("Player 1's turn");
-        do {System.out.println("Enter the first coordinate (1-3)");
-        userACoordinateA = scanner.nextInt();}
-            while (userACoordinateA < 1 || userACoordinateA > 3);
+
+        String xCoordPromt = "Enter the x coordinate (1-3)";
+        String yCoordPromt = "Enter the x coordinate (1-3)";
+        int playerOnTurn = 1;
+
+        System.out.println("Player " + playerOnTurn + "'s turn");
+        do { //loop until the coordinates point to an empty cell
+        do {System.out.println(xCoordPromt); //loop until input is valid
+        coordinateA = scanner.nextInt();}
+            while (coordinateA < 1 || coordinateA > 3);
             //System.out.println(userACoordinateA);
-        do {System.out.println("Enter the second coordinate (1-3)");
-            userACoordinateB = scanner.nextInt();}
-        while (userACoordinateB < 1 || userACoordinateB > 3);
-        //userB
+        do {System.out.println(yCoordPromt); //loop until input is valid
+            coordinateB = scanner.nextInt();}
+        while (coordinateB < 1 || coordinateB > 3);}
+        while (board [coordinateB-1][coordinateA-1] != "[ ]");
+
+        // add input to the board
+        if (playerOnTurn == 1)
+        {board [coordinateB-1][coordinateA-1] = "[x]";}
+        else {board [coordinateB-1][coordinateA-1] = "[o]";}
+        if (playerOnTurn == 1) {playerOnTurn = 2;} else {playerOnTurn = 1};
+
+        /*
         System.out.println("Player 2's turn");
-        do {System.out.println("Enter the first coordinate (1-3)");
+        do { //loop until the coordinates point to an empty cell
+        do {System.out.println(xCoordPromt);
             userBCoordinateA = scanner.nextInt();}
         while (userBCoordinateA < 1 || userBCoordinateA > 3);
         //System.out.println(userACoordinateA);
-        do {System.out.println("Enter the second coordinate (1-3)");
+        do {System.out.println(yCoordPromt);
             userBCoordinateB = scanner.nextInt();}
-        while (userACoordinateB < 1 || userBCoordinateB > 3);
+        while (userACoordinateB < 1 || userBCoordinateB > 3);}
+        while (board [userBCoordinateB-1][userBCoordinateA-1] != "[ ]");
 
-
-
-        System.out.println(userACoordinateA);
-        System.out.println(userACoordinateB);
-        System.out.println(userBCoordinateA);
-        System.out.println(userBCoordinateB);
+        // add input to the board
+        board [userBCoordinateB-1][userBCoordinateA-1] = "[o]";
+*/
+        drawBoard(board);
 
         }
     }
