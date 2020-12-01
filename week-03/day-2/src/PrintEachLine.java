@@ -20,7 +20,7 @@ public class PrintEachLine {
             }
 
         } catch (IOException e) {
-            System.err.println("Fuck! File cannot be read.");
+            System.err.println("File cannot be read.");
         }
 
     }
