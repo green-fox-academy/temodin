@@ -70,9 +70,23 @@ public class ShoppingList2 {
         else {System.out.println("They buy the same amount of potato.");}
 
         //who buys more different products?
-        //count the item types in the map with a loop
+        if(shoppingListAlice.size() > shoppingListBob.size()) {
+            System.out.println("Alice buys more different products");
+        }
+        else if(shoppingListAlice.size() < shoppingListBob.size()) {
+            System.out.println("Bob buys more different products");
+        }
+        else {
+            System.out.println("Both buys the same amount of different products");
+        }
+        Integer shoppingListBobItemCount = 0;
+        Integer shoppingListAliceItemCount = 0;
 
         //who buys more products?
+        for (String item : shoppingListBob.keySet()) {
+            shoppingListBobItemCount += shoppingListBob.get(item);
+        }
+        System.out.println(shoppingListBobItemCount);
         //sum the product pcs with a loop
 
 

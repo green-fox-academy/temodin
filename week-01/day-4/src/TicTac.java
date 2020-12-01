@@ -2,6 +2,15 @@ import java.util.Scanner;
 
 public class TicTac {
 
+    public static int changePlayer (int playerOnTurn) {
+        if (playerOnTurn == 1) {
+            playerOnTurn = 2;
+        } else {
+            playerOnTurn = 1;
+        }
+        return playerOnTurn;
+    }
+
     //function to draw board
     public static void drawBoard(String[][] board) {
         for (int i = 0; i < board.length; i++) {
@@ -14,7 +23,7 @@ public class TicTac {
     }
 
     //function to check is there is a winner
-    public static boolean checkGameEnd(String[][] board) {
+    public static boolean isThereAWinner(String[][] board) {
         String blank = "[ ]";
         boolean result = false;
         //check rows
@@ -30,7 +39,8 @@ public class TicTac {
             }
         }
         //check diagonals
-        if (board[0][0] != blank && board[0][0].equals(board[1][1]) && board[0][0].equals(board[2][2])) {
+        if ((board[0][0] != blank && board[0][0].equals(board[1][1]) && board[0][0].equals(board[2][2]))
+        || (board[0][2] != blank && board[0][2].equals(board[1][1]) && board[0][2].equals(board[2][0]))) {
             result = true;
         }
         return result;
@@ -86,11 +96,9 @@ public class TicTac {
                 board[coordinateB - 1][coordinateA - 1] = "[o]";
             }
 
-            //draw the board to show the user what has been inputted
             drawBoard(board);
 
-            //check if game has ended
-            if (checkGameEnd(board)) {
+            if (isThereAWinner(board)) {
                 break;
             }
 
@@ -99,12 +107,7 @@ public class TicTac {
                 isDraw = true;
             }
 
-            //next player's turn
-            if (playerOnTurn == 1) {
-                playerOnTurn = 2;
-            } else {
-                playerOnTurn = 1;
-            }
+            playerOnTurn = changePlayer(playerOnTurn);
         }
 
         //announce winner
