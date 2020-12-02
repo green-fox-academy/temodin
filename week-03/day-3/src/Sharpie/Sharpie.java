@@ -3,7 +3,7 @@ package Sharpie;
 public class Sharpie {
   String color;
   float width;
-  float inkAmount = 100;
+  float inkAmount = 5;
 
   public Sharpie (String color, float width) {
       this.color = color;
@@ -11,7 +11,7 @@ public class Sharpie {
   }
 
   public void use() {
-      this.inkAmount--;
+      if (this.inkAmount > 0) {this.inkAmount--;}
   }
 
 }
