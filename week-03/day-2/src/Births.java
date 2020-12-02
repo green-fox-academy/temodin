@@ -3,7 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Births {
@@ -23,17 +23,31 @@ public class Births {
         } catch (IOException e) {
             System.out.println("File not found");
         }
-        List birthyears = new ArrayList();
+        List <String> birthyears = new ArrayList();
         for (String line: lines
              ) {
             String[] splitLine = line.split(";");
             birthyears.add(splitLine[1].substring(0,4));
         }
+        Collections.sort(birthyears);
         System.out.println(birthyears);
 
+        int currentFrequency = 0;
+        int maxFrequency = 0;
+        String mostFrequentYear = birthyears.get(0);
 
+        for (int i = 0; i < birthyears.size(); i++) {
+            currentFrequency = 0;
+            for (int j = 0; j < birthyears.size(); j++) {
+                if (birthyears.get(i).equals(birthyears.get(j))) {
+                    currentFrequency++;}
+            }
+            if (currentFrequency > maxFrequency) {
+                mostFrequentYear= birthyears.get(i);
+            maxFrequency = currentFrequency;}
+        }
 
-
+        System.out.println(mostFrequentYear);
     }
 
 
