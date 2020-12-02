@@ -15,12 +15,12 @@ public class SharpieSet {
         return counter;
     }
     public void removeTrash() {
-        List<Sharpie> temp = new ArrayList<>(sharpies);
-        for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).inkAmount == 0) {
-                sharpies.remove(i);
+        List<Sharpie> temp = new ArrayList<>();
+        for (int i = 0; i < sharpies.size(); i++) {
+            if (sharpies.get(i).inkAmount != 0) {
+                temp.add(sharpies.get(i));
             }
         }
-
+        sharpies = temp;
     }
 }

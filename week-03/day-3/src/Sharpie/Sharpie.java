@@ -5,6 +5,7 @@ public class Sharpie {
   float width;
   float inkAmount = 5;
 
+
   public Sharpie (String color, float width) {
       this.color = color;
       this.width = width;
