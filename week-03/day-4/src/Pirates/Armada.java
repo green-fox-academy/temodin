@@ -7,16 +7,21 @@ public class Armada {
     List<Ship> fleet = new ArrayList<>();
 
     public boolean war (Armada otherArmada) {
+        boolean result;
         int thisArmadaCounter = 0;
         int otherArmadaCounter = 0;
-        do {
+        for (int i =0; 1==1; i++) {
             if(this.fleet.get(thisArmadaCounter).battle(otherArmada.fleet.get(otherArmadaCounter))) {
                 otherArmadaCounter++;
             } else {thisArmadaCounter++;}
-
-        }
-        while (thisArmadaCounter != this.fleet.size() || otherArmadaCounter != otherArmada.fleet.size());
-        return (thisArmadaCounter == this.fleet.size());
+        if (thisArmadaCounter == this.fleet.size()) {
+            result = false;
+            break;
+        } else if (otherArmadaCounter == otherArmada.fleet.size()) {
+            result = true;
+            break;
+        }}
+        return result;
 
         }
         }

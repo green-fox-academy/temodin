@@ -65,6 +65,12 @@ public class Ship {
             otherShip.party();
             this.loser();
         }
+        if (battle) {
+            System.out.println("This ship has won");
+        }
+        else {
+            System.out.println("The other ship has won");}
+
 
         return battle;
     };
