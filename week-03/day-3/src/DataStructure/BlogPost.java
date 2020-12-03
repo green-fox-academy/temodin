@@ -6,4 +6,9 @@ public class BlogPost {
     String text;
     String publicationDate;
 
+    public BlogPost (String AuthorName, String title)
+    {this.AuthorName = AuthorName;
+    this.title = title;
+    }
+
 }
