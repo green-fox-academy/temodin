@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class Recursion {
 
     public static int factorial(int n) {
@@ -102,6 +104,32 @@ public class Recursion {
     }
 
 
+    // Write a function that finds the largest element of an array using recursion.
+
+    public static int findMax (int[] myArray) {
+
+        if (myArray.length == 1) {
+            return myArray[0];
+        }
+        else {
+            int[] myArrayOneLess = new int[myArray.length-1];
+            int comparisonA = myArray[myArray.length-1];
+            int comparisonB = myArray[myArray.length-2];
+
+            for (int i = 0; i < myArray.length-2; i++) {
+                myArrayOneLess[i] = myArray[i];
+            }
+
+            if (comparisonA >= comparisonB) {
+                myArrayOneLess[myArrayOneLess.length-1] = comparisonA;
+            }
+            else {myArrayOneLess[myArrayOneLess.length-1] = comparisonB;}
+
+            return findMax(myArrayOneLess);
+        }
+    }
+
+
 
     public static void main(String[] args) {
 
@@ -112,7 +140,8 @@ public class Recursion {
         //System.out.println(bunnyEarCounter(5));
         //System.out.println(bunnyEarAndLegCounter(5));
         //System.out.println(xToY("xerxszesz"));
-        System.out.println(separateWithAsterisk("xenia"));
+        //System.out.println(separateWithAsterisk("xenia"));
+        System.out.println(findMax(new int[] {1,15}));
 
 
     }
