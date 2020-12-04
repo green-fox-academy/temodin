@@ -48,13 +48,72 @@ public class Recursion {
            return n * power(n,p-1);}
     };
 
+    // We have a number of bunnies and each bunny has two big floppy ears.
+    // We want to compute the total number of ears
+    // across all the bunnies recursively (without loops or multiplication).
+    public static int bunnyEarCounter(int numberOfBunnies) {
+
+        if (numberOfBunnies == 1) {
+            return 2;
+        }
+        else {
+            return 2 + (bunnyEarCounter(numberOfBunnies-1));
+        }
+    }
+
+    // We have bunnies standing in a line,
+    // numbered 1, 2, 3, 4, ...
+    // The odd bunnies (1, 3, ...) have the normal 2 ears.
+    // The even bunnies (2, 4, ..) we'll say have 3 ears,
+    // because they each have a raised foot.
+    // Recursively return the number of "ears" in
+    // the bunny line 1, 2, ... n (without loops or multiplication).
+
+    public static int bunnyEarAndLegCounter(int numberOfBunnies) {
+
+        if (numberOfBunnies == 1) {
+            return 2;
+        }
+        else if (numberOfBunnies % 2 == 1) {
+            return 2 + (bunnyEarAndLegCounter(numberOfBunnies-1));}
+        else {return 3 + (bunnyEarAndLegCounter(numberOfBunnies-1));}
+    }
+
+    // Given a string, compute recursively (no loops) a new string where
+    // all the lowercase 'x' chars have been changed to 'y' chars.
+    public static String xToY (String stringToConvert) {
+        if (stringToConvert.length() == 0) {
+            return "";
+        }
+        else if (stringToConvert.charAt(stringToConvert.length()-1) == 'x') {
+                return xToY(stringToConvert.substring(0,stringToConvert.length()-1)) + "y";
+            }
+        else {return xToY(stringToConvert.substring(0,stringToConvert.length()-1))+ stringToConvert.charAt(stringToConvert.length()-1) ;}
+        }
+
+    // Given a string,
+    // compute recursively a new string where
+    // all the adjacent chars are now separated by a `*`
+    public static String separateWithAsterisk (String stringToConvert) {
+        if (stringToConvert.length() == 0) {
+            return "";
+        }
+        else {return separateWithAsterisk(stringToConvert.substring(0,stringToConvert.length()-1)) + stringToConvert.charAt(stringToConvert.length()-1) +"*" ;}
+    }
+
+
 
     public static void main(String[] args) {
 
         //System.out.println(factorial(3));
         //System.out.println(addNumbers(3));
         //System.out.println(sumDigits(66));
-        System.out.println(power(3,2));
+        //System.out.println(power(3,2));
+        //System.out.println(bunnyEarCounter(5));
+        //System.out.println(bunnyEarAndLegCounter(5));
+        //System.out.println(xToY("xerxszesz"));
+        System.out.println(separateWithAsterisk("xenia"));
+
 
     }
 }
