@@ -5,6 +5,7 @@ public class AircraftF16 extends Aircraft{
        this.baseDamage = 30;
        this.maxAmmo = 8;
         this.type = "F16";
+        this.currentAmmo = 0;
     }
 
     @Override

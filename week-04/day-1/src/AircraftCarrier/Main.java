@@ -9,6 +9,20 @@ public class Main {
         System.out.println(f16_1.refill(20));
         f16_1.getAircraftProperties();
 
+        Carrier carrier1 = new Carrier(50,50);
+
+        carrier1.addAircraftF16();
+        carrier1.addAircraftF16();
+        carrier1.addAircraftF16();
+        carrier1.addAircraftF35();
+        carrier1.addAircraftF35();
+        carrier1.addAircraftF35();
+        carrier1.carrierInfo();
+
+        carrier1.fill();
+        carrier1.carrierInfo();
+
+
 
     }
 }

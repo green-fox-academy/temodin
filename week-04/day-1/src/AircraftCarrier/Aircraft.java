@@ -3,13 +3,13 @@ package AircraftCarrier;
 public class Aircraft {
     protected int maxAmmo;
     protected int baseDamage;
-    private int currentAmmo;
+    protected int currentAmmo;
     protected String type;
 
 
-    public Aircraft() {
-        currentAmmo = 0;
-    }
+    //public Aircraft() {
+    //    currentAmmo = 0;
+    //}
 
     public void getAircraftProperties () {
         System.out.println("This " + type + " has " +currentAmmo + "/" + maxAmmo + " ammunition and " + baseDamage + " base damage and " + baseDamage *currentAmmo + " total damage" );
@@ -21,8 +21,12 @@ public class Aircraft {
         return totalDamage;
     }
 
+    public int missingAmmo () {
+        return this.maxAmmo-this.currentAmmo;
+    }
+
     public int refill (int amount) {
-       if (amount < (this.maxAmmo - this.currentAmmo)) {
+       if (amount < (missingAmmo())) {
            this.currentAmmo += amount;
            return 0;
        }
