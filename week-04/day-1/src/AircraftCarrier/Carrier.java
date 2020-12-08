@@ -21,27 +21,15 @@ public class Carrier {
     }
 
     public void fill () {
-        fillPriority();
-        fillNoPriority();
+        fillPrioGroup(true);
+        fillPrioGroup(false);
+
     }
 
-    public void fillPriority () {
-        for (Aircraft aircraft : aircrafts
-                 ) {
-                if (aircraft.isPriority()) {
-                if (this.ammoStore >= aircraft.missingAmmo()){
-                    this.ammoStore -= aircraft.missingAmmo();
-                    aircraft.refill(aircraft.missingAmmo());
-
-                }
-                else {aircraft.refill(ammoStore);
-                this.ammoStore = 0;}}
-            }
-        }
-    public void fillNoPriority () {
+    public void fillPrioGroup (boolean priorityToFill) {
         for (Aircraft aircraft : aircrafts
         ) {
-            if (!aircraft.isPriority()) {
+            if (aircraft.isPriority() == priorityToFill) {
                 if (this.ammoStore >= aircraft.missingAmmo()){
                     this.ammoStore -= aircraft.missingAmmo();
                     aircraft.refill(aircraft.missingAmmo());

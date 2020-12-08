@@ -1,19 +1,23 @@
 package FleetOfThings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by aze on 2017.03.29..
  */
 public class Fleet {
-    private ArrayList<Thing> things;
+    public ArrayList<Thing> things = new ArrayList<>();
 
     public Fleet() {
-        things = new ArrayList<>();
     }
 
     public void add(Thing thing) {
         things.add(thing);
+    }
+
+    public List getThings () {
+        return this.things;
     }
 
     @Override

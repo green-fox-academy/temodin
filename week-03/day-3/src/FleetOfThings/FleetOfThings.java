@@ -1,5 +1,7 @@
 package FleetOfThings;
 
+import java.util.Collections;
+
 public class FleetOfThings {
 
     public static void main(String[] args) {
@@ -30,7 +32,12 @@ public class FleetOfThings {
         myFleet.add(myThing3);
         myFleet.add(myThing4);
 
+        Collections.sort(myFleet.getThings());
 
-        System.out.println(myFleet);
+        for (Thing thing : myFleet.things)
+              {
+                  System.out.println(thing);
+        }
+
     }
 }
