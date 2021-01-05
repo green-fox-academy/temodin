@@ -79,13 +79,11 @@ body {
 }
 
 #form-div button:active {
-    
-    /*box-shadow: 0px 4px 8px #808080;*/
+
     transform: scale(.95);
 }
 
 .form-row input:focus, textarea:focus {
-    /*outline: 1px solid #7EDA35;*/
     outline: none;
     border:1px solid #7EDA35;
     

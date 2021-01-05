@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body, .container {
+    height: 100%;
+    background-color:transparent;
+}
+
+
+body {
+    background-color: #D6D3D2;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#signup-form {
+    display: flex;
+    flex-direction: row;
+    padding: 30px 50px 30px 50px;
+    font-family:  Arial, sans-serif;
+    color: #727171;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 600px;
+    min-width: 600px;
+
+}
+
+#form-div {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-div h1 {
+    color: #727171;
+    font-size: 25px;
+    font-weight: unset;
+}
+
+#form-div h1, .form-row {
+    margin-bottom: 30px;
+}
+
+.form-row label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-row p {
+    font-size: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.form-row input {
+  border: none;
+  border-bottom: 1px solid #D6D3D2 ;
+  height: 30px;
+  padding: 2.5px 5px 2.5px 5px;
+  font-size: 15px;
+  width: 90%;
+}
+
+#form-div button {
+    border: none;
+    border-radius: 2px;
+    height: 30px;
+    background-color: #38a371;
+    color: #fff;
+    width: 150px;
+    font-weight: unset;
+    outline: none;
+}
+
+#form-div button:active {
+    
+    /*box-shadow: 0px 4px 8px #808080;*/
+    transform: scale(.95);
+}
+
+.form-row input:focus, textarea:focus {
+    /*outline: 1px solid #7EDA35;*/
+    outline: none;
+    border-bottom:3px solid #38a371;
+    
+}
+
+#social-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
+
+#or {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+}
+
+#or span {
+    background-color: grey;
+    padding: 15px;
+    border-radius: 100%;
+    color: #fff;
+}
+
+#facebook-login {
+    background-color: #3b5998;
+}
+
+#twitter-login {
+    background-color:#1da1f2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#google-login {
+    background-color:#de5246;
+}
+
+#social-buttons button {
+        border: none;
+        border-radius: 2px;
+        height: 30px;
+        color: #fff;
+        width: 250px;
+        font-weight: unset;
+        outline: none;  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
