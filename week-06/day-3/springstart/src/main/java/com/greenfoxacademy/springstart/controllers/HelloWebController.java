@@ -3,16 +3,19 @@ package com.greenfoxacademy.springstart.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @Controller
 public class HelloWebController {
-  @RequestMapping(value="/web/greeting")
 
+    AtomicLong atomicLong = new AtomicLong();
 
-  public String greeting (Model model)  {
-      model.addAttribute("name"," World");
-      return "greeting";
-  }
-
-
+    @RequestMapping(value = "/greetinglofasz")
+    public String greeting(@RequestParam String name, Model model) {
+        model.addAttribute("name", name);
+        model.addAttribute("counter", atomicLong.getAndIncrement());
+        return "greetinglofasz";
+    }
 }
