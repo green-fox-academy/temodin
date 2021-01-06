@@ -11,6 +11,6 @@ public class MainController {
 
     @ResponseBody
     public String hello () {
-        return "Hello gyoker!";
+        return "Hello!";
     }
 }
