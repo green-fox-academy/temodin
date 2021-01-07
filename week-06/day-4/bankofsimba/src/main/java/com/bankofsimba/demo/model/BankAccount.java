@@ -5,10 +5,12 @@ public class BankAccount {
     private Double balance;
     private String animalType;
     private String currency;
-    private boolean isGood;
-    private boolean isKing;
+    private Boolean isGood;
+    private Boolean isKing;
 
-    public BankAccount(String name, Double balance, String animalType, String currency, boolean isKing, boolean isGood) {
+    public BankAccount() {};
+
+    public BankAccount(String name, Double balance, String animalType, String currency, Boolean isKing, Boolean isGood) {
         this.name = name;
         this.balance = balance;
         this.animalType = animalType;
@@ -33,12 +35,26 @@ public class BankAccount {
         return currency;
     }
 
+    public Boolean getGood() {
+        return isGood;
+    }
+
+    public Boolean getKing() {
+        return isKing;
+    }
+
     public String getKingOrSubject() {
-        return this.isKing ? "K" : "S";
+        return this.isKing ? "♔" : "";
     }
 
     public String getGoodOrBad() {
         if (this.isGood) {return "Good Guy";}
         else {return "Bad Guy";}
     }
+
+    public void increaseBalance() {
+        if (this.isKing) {this.balance += 100;}
+        else {this.balance += 10;}
+    }
+
 }

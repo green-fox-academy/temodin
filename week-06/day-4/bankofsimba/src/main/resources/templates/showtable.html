@@ -7,23 +7,42 @@
 </head>
 <body>
 <div>
+<!--    <div id="accountadder">-->
+<!--        <form action="#" th:action="@{/addaccount}" th:object="${account}" method = "post">-->
+<!--            <input type="text" th:field="*{name}" placeholder="Name">-->
+<!--            <input type="number" th:field="*{balance}" placeholder="Starting balance">-->
+<!--            <input type="text" th:field="*{currency}" placeholder="Currency">-->
+<!--            <input type="text" th:field="*{animalType}" placeholder="Type of animal">-->
+<!--            <label for="isking">King</label>-->
+<!--            <input type="checkbox" th:field="*{isKing}" id="isking" th:checked="${isKing}">-->
+<!--            <label for="isgood">Good</label>-->
+<!--            <input type="checkbox" th:field="*{isGood}" id="isgood" th:checked="${isGood}">-->
+<!--            <button type="submit">Add account</button>-->
+<!--        </form>-->
+<!--    </div>-->
     <table>
         <thead>
         <th>Index</th>
         <th>Name</th>
         <th>Balance</th>
         <th>Animal type</th>
-        <th>King (K) or subject (S)</th>
+        <th>King</th>
         <th>Good or bad</th>
+        <th>Adjust balance</th>
         </thead>
         <tbody>
         <tr th:each="account, iStat: ${accounts}" th:class="${account.kingOrSubject}">
-            <td><span th:text="${iStat.index}"></span></td>
+            <td><span th:text="${iStat.index + 1}"></span></td>
             <td><span th:text="${account.name}"></span></td>
             <td><span th:text="${#numbers.formatDecimal(account.balance,2,2)} + ' ' + ${account.currency}"></span></td>
             <td><span th:text="${account.animalType}"></span></td>
             <td><span th:text="${account.kingOrSubject}"></span></td>
             <td><span th:text="${account.goodOrBad}"></span></td>
+            <td>
+                <form method="post" th:action="@{/increasebalance(name=${account.name})}" th:object="${account}">
+                    <button type="submit">Increase</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
