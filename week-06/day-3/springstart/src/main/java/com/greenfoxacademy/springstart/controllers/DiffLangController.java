@@ -24,7 +24,7 @@ public class DiffLangController {
     }
 
     public int getRandomRgb () {
-        return (int)(Math.random()*251);
+        return (int)(Math.random()*256);
     }
 
 }
