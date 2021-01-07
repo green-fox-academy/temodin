@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf Exercise #</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <th>Index</th>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Animal type</th>
+        <th>King (K) or subject (S)</th>
+        <th>Good or bad</th>
+        </thead>
+        <tbody>
+        <tr th:each="account, iStat: ${accounts}" th:class="${account.kingOrSubject}">
+            <td><span th:text="${iStat.index}"></span></td>
+            <td><span th:text="${account.name}"></span></td>
+            <td><span th:text="${#numbers.formatDecimal(account.balance,2,2)} + ' ' + ${account.currency}"></span></td>
+            <td><span th:text="${account.animalType}"></span></td>
+            <td><span th:text="${account.kingOrSubject}"></span></td>
+            <td><span th:text="${account.goodOrBad}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+package com.bankofsimba.demo.controller;
+
+import com.bankofsimba.demo.model.BankAccount;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+public class MainController {
+
+    private List<BankAccount> accounts = new ArrayList<>();
+
+    public MainController() {
+        accounts.add(new BankAccount("Simba", 2000.00, "lion", "Zebra", false,true));
+        accounts.add(new BankAccount("Timon", 1000.55, "meerkat", "Bugs", false,true));
+        accounts.add(new BankAccount("Pumba", 1500.00, "warthog", "Bugs", false,true));
+        accounts.add(new BankAccount("Mufasa", 3000.00, "lion", "Jackal", true,true));
+        accounts.add(new BankAccount("Zordon", 2500.00, "lion", "Jackal", false,false));
+    }
+
+    @GetMapping("/show")
+    public String showAccount(Model model) {
+        model.addAttribute("accounts", accounts);
+        return "show";
+    }
+
+    @GetMapping("/showtable")
+    public String showAccountInTable(Model model) {
+        model.addAttribute("accounts", accounts);
+        return "showtable";
+    }
+
+    @GetMapping("/text")
+    public String responseText(Model model) {
+        model.addAttribute("text", "This is an <em>HTML</em> text. <b>Enjoy yourself!</b>");
+        return "text";
+    }
+
+}
