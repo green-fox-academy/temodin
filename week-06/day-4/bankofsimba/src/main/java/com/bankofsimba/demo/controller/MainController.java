@@ -34,13 +34,8 @@ public class MainController {
     @GetMapping("/showtable")
     public String showAccountInTable(Model model) {
         model.addAttribute("accounts", accounts);
-        BankAccount account = new BankAccount();
-        model.addAttribute("name",account.getName());
-        model.addAttribute("balance",account.getBalance());
-        model.addAttribute("animalType",account.getAnimalType());
-        model.addAttribute("currency",account.getCurrency());
-        model.addAttribute("isKing",account.getGood());
-        model.addAttribute("isGood",account.getKing());
+        BankAccount account = new BankAccount("name",0D,"type","currency",false,false);
+        model.addAttribute("account", account);
 
         return "showtable";
     }
@@ -68,11 +63,10 @@ public class MainController {
                 .findFirst();
     }
 
-//    @PostMapping("/addaccount")
-//    public String addAccount(@ModelAttribute BankAccount account, Model model){
-//        model.addAttribute("account", account);
-//        accounts.add(account);
-//        return "redirect:/showtable";
-//    }
+    @PostMapping("/addaccount")
+    public String addAccount(BankAccount account) {
+        accounts.add(account);
+        return "redirect:/showtable";
+    }
 
 }

@@ -5,10 +5,8 @@ public class BankAccount {
     private Double balance;
     private String animalType;
     private String currency;
-    private Boolean isGood;
-    private Boolean isKing;
-
-    public BankAccount() {};
+    private Boolean isGood = false;
+    private Boolean isKing = false;
 
     public BankAccount(String name, Double balance, String animalType, String currency, Boolean isKing, Boolean isGood) {
         this.name = name;
@@ -35,11 +33,11 @@ public class BankAccount {
         return currency;
     }
 
-    public Boolean getGood() {
+    public Boolean getIsGood() {
         return isGood;
     }
 
-    public Boolean getKing() {
+    public Boolean getIsKing() {
         return isKing;
     }
 

@@ -7,19 +7,21 @@
 </head>
 <body>
 <div>
-<!--    <div id="accountadder">-->
-<!--        <form action="#" th:action="@{/addaccount}" th:object="${account}" method = "post">-->
-<!--            <input type="text" th:field="*{name}" placeholder="Name">-->
-<!--            <input type="number" th:field="*{balance}" placeholder="Starting balance">-->
-<!--            <input type="text" th:field="*{currency}" placeholder="Currency">-->
-<!--            <input type="text" th:field="*{animalType}" placeholder="Type of animal">-->
-<!--            <label for="isking">King</label>-->
-<!--            <input type="checkbox" th:field="*{isKing}" id="isking" th:checked="${isKing}">-->
-<!--            <label for="isgood">Good</label>-->
-<!--            <input type="checkbox" th:field="*{isGood}" id="isgood" th:checked="${isGood}">-->
-<!--            <button type="submit">Add account</button>-->
-<!--        </form>-->
-<!--    </div>-->
+    <div id="accountadder">
+        <form action="/addaccount" method = "post">
+            <input type="text" name="name" placeholder="Name">
+            <input type="number" name="balance" placeholder="Starting balance">
+            <input type="text" name="currency" placeholder="Currency">
+            <input type="text" name="animalType" placeholder="Type of animal">
+            <label for="isking">King</label>
+            <input type="checkbox" name="isKing" id="isking" value=1>
+            <input type="hidden" name="isKing" value=0>
+            <label for="isgood">Good</label>
+            <input type="checkbox" name="isGood" id="isgood" value=1>
+            <input type="hidden" name="isGood" value=0>
+            <button type="submit">Add account</button>
+        </form>
+    </div>
     <table>
         <thead>
         <th>Index</th>
