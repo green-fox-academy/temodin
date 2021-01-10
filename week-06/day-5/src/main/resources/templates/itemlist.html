@@ -28,10 +28,13 @@
         </form>
     </div>
     <div class="container">
-        <form action="">
+        <form th:action="@{/search-by-name}" method="post">
             <label for="search">Search for:</label>
-            <input type="text" id="search" name="search">
+            <input type="text" id="search" name="keyWord">
             <button type="submit">search</button>
+        </form>
+        <form th:action="@{/back-to-main}">
+            <button type="submit">show all</button>
         </form>
     </div>
     <div class="container">

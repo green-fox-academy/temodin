@@ -3,6 +3,8 @@ package com.webshop.demo.controller;
 import com.webshop.demo.model.ShopItem;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class Controller {
 
     private List<ShopItem> items = new ArrayList<>();
+    private List<ShopItem> currentItems = new ArrayList<>();
 
     public Controller() {
         items.add(new ShopItem("duplo", "building blocks", 30, 10));
@@ -23,11 +26,12 @@ public class Controller {
         items.add(new ShopItem("color pencils", "pencils", 30, 0));
         items.add(new ShopItem("color pencils", "genuine stabilo creative accessory", 30, 0));
         items.add(new ShopItem("color sharpie", "pencil-like creative accessory", 30, 0));
+        currentItems = items;
     }
 
     @GetMapping("/itemlist")
     public String showItems(Model model) {
-        model.addAttribute("items", items);
+        model.addAttribute("items", currentItems);
         return "itemlist";
     }
 
@@ -78,8 +82,24 @@ public class Controller {
                 .stream()
                 .max(Comparator.comparing(ShopItem::getPrice))
                 .orElse(null);
-                model.addAttribute("mostExpensive", mostExpensive.getName());
+                model.addAttribute("mostExpensive", mostExpensive.getName() + " for " + mostExpensive.getPrice() + " bucks");
         return "averagestock";
+    }
+
+    @GetMapping("/back-to-main")
+    public String backToMain(Model model) {
+        currentItems = items;
+        model.addAttribute("items", currentItems);
+        return "itemlist";
+    }
+
+    @PostMapping("/search-by-name")
+    public String searchByName (Model model, @RequestParam String keyWord) {
+        currentItems = items
+                .stream()
+                .filter(i -> i.getName().contains(keyWord) || i.getDescription().contains(keyWord))
+                .collect(Collectors.toList());
+        return "redirect:/itemlist";
     }
 
 

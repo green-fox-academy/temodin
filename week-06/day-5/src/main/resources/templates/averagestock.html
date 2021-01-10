@@ -10,35 +10,14 @@
     <header><a th:href="@{/itemlist}">
         <h1>Roaring Dinosaur Toy Shop</h1></a>
     </header>
-    <div class="container">
-        <form th:action="@{/only-available}">
-            <button type="submit">available only</button>
-        </form>
-        <form th:action="@{/cheapest-first}">
-            <button type="submit">cheapest first</button>
-        </form>
-        <form th:action="@{/contains-pencil}">
-            <button type="submit">contains pencils</button>
-        </form>
-        <form th:action="@{/average-stock}">
-            <button type="submit">average stock</button>
-        </form>
-        <form th:action="@{/most-expensive}">
-            <button type="submit">most expensive</button>
-        </form>
-    </div>
-    <div class="container">
-        <form action="">
-            <label for="search">Search for:</label>
-            <input type="text" id="search" name="search">
-            <button type="submit">search</button>
-        </form>
-    </div>
+    <form th:action="@{/back-to-main}">
+        <button type="submit">go back</button>
+    </form>
     <div class="container">
         <h1 th:if="${averageStock == null}"
             th:text="'The most expensive game is: ' + ${mostExpensive}"></h1>
         <h1 th:if="${averageStock != null}"
-                th:text="'Average stock is ' + ${#numbers.formatDecimal(averageStock,2,2)}"></h1>
+            th:text="'Average stock is ' + ${#numbers.formatDecimal(averageStock,2,2)}"></h1>
     </div>
 </div>
 </body>
