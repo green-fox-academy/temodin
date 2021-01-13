@@ -7,10 +7,14 @@
 </head>
 <body>
 <div id="main-container">
-    <header><a th:href="@{/itemlist}">
-        <h1>Roaring Dinosaur Toy Shop</h1></a>
-    </header>
     <div class="container">
+        <header>
+            <a th:href="@{/itemlist}">
+                <img src="dinosaur.png" alt="Roarr!" width="50" height="60">
+                <h1>Roaring Dinosaur Toy Shop</h1></a>
+        </header>
+    </div>
+    <div class="container-control">
         <form th:action="@{/only-available}">
             <button type="submit">available only</button>
         </form>
@@ -26,8 +30,20 @@
         <form th:action="@{/most-expensive}">
             <button type="submit">most expensive</button>
         </form>
+        <form th:action="@{/change-currency}">
+            <button type="submit">change currency</button>
+        </form>
     </div>
-    <div class="container">
+    <div class="container-control">
+        <form th:action="@{/filter-by-type}" method="post">
+            <select name="type">
+                <option value="building">building</option>
+                <option value="figures">figures</option>
+                <option value="boardgame">boardgame</option>
+                <option value="creative">creative</option>
+            </select>
+            <button type="submit">filter by type</button>
+        </form>
         <form th:action="@{/search-by-name}" method="post">
             <label for="search">Search for:</label>
             <input type="text" id="search" name="keyWord">
@@ -41,14 +57,19 @@
         <table>
             <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
             </tr>
             <tr th:each="item : ${items}">
                 <td th:text="${item.name}"></td>
+                <td th:text="${item.type}"></td>
                 <td th:text="${item.description}"></td>
-                <td th:text="${item.price}"></td>
+                <td th:if="${currency == 'EUR'}"
+                        th:text="${item.price} + ' €'"></td>
+                <td th:if="${currency == 'HUF'}"
+                    th:text="${item.getPriceInHuf() + ' Ft'}"></td>
                 <td th:text="${item.quantityOfStock}"></td>
             </tr>
         </table>

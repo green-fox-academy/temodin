@@ -17,21 +17,23 @@ public class Controller {
 
     private List<ShopItem> items = new ArrayList<>();
     private List<ShopItem> currentItems = new ArrayList<>();
+    private String currency = "EUR";
 
     public Controller() {
-        items.add(new ShopItem("duplo", "building blocks", 30, 10));
-        items.add(new ShopItem("lego", "small building blocks", 20, 30));
-        items.add(new ShopItem("dinosaur", "plastic toy", 10, 100));
-        items.add(new ShopItem("mouse board game", "children board game", 50, 10));
-        items.add(new ShopItem("color pencils", "pencils", 30, 0));
-        items.add(new ShopItem("color pencils", "genuine stabilo creative accessory", 30, 0));
-        items.add(new ShopItem("color sharpie", "pencil-like creative accessory", 30, 0));
+        items.add(new ShopItem("duplo", "building blocks", 30, 10, "building"));
+        items.add(new ShopItem("lego", "small building blocks", 20, 30, "building"));
+        items.add(new ShopItem("dinosaur", "plastic toy", 10, 100, "figures"));
+        items.add(new ShopItem("mouse board game", "children board game", 50, 10, "boardgame"));
+        items.add(new ShopItem("color pencils", "pencils", 30, 0, "creative"));
+        items.add(new ShopItem("color pencils", "genuine stabilo creative accessory", 30, 0, "creative"));
+        items.add(new ShopItem("color sharpie", "pencil-like creative accessory", 30, 0,"creative"));
         currentItems = items;
     }
 
     @GetMapping("/itemlist")
     public String showItems(Model model) {
         model.addAttribute("items", currentItems);
+        model.addAttribute("currency",currency);
         return "itemlist";
     }
 
@@ -102,8 +104,23 @@ public class Controller {
         return "redirect:/itemlist";
     }
 
+    @PostMapping("/filter-by-type")
+    public String filterByType (Model model, @RequestParam String type)    {
+        currentItems = items
+                .stream()
+                .filter(i -> i.getType().equals(type))
+                .collect(Collectors.toList());
+        return "redirect:/itemlist";
+    }
 
-
-
+    @GetMapping("/change-currency")
+    public String filterByType (Model model)    {
+        if (currency.equals("EUR")) {currency = "HUF";}
+        else {currency = "EUR";}
+        currentItems = items;
+        model.addAttribute("currency", currency);
+        model.addAttribute("items", currentItems);
+        return "itemlist";
+    }
 
 }
