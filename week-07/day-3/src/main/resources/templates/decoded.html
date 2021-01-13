@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ceasar</title>
+</head>
+<body>
+<ul th:each="decodedText : ${decodedTextList}">
+   <li th:text="${decodedText}"></li>
+</ul>
+</body>
+</html>

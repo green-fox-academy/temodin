@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Useful</title>
+</head>
+<body>
+<a href="useful/colored">useful shit</a>
+<br>
+<a href="useful/email?email=is@this.valid">try email validator shit</a>
+<form action="/useful/encoded" method="post">
+    <input type="text" name="textToEncode" placeholder="textToEncode">
+    <input type="number" name="encodingParam" placeholder="encodingParam">
+    <button type="submit">encode</button>
+</form>
+<form action="/useful/decoded" method="post">
+    <input type="text" name="textToDecode" placeholder="textToDecode">
+    <button type="submit">decode</button>
+</form>
+</body>
+</html>
