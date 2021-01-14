@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GFC - Food Store</title>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li><a th:href="'/index?loginname=' + ${name}">Information</a></li>
+        <li><a th:href="'/foodstore?loginname=' + ${name}">Food Store</a></li>
+        <li><a th:href="'/trickcenter?loginname=' + ${name}">Trick Center</a></li>
+        <li><a th:href="'/actionhistory?loginname=' + ${name}">Action History</a></li>
+    </ul>
+    <form th:action="'/feed?loginname=' + ${name}" method="post" >
+        <select name="food" id="food" >
+            <option th:each="food : ${foods}" th:value="${food}" th:text="${food}"></option>
+        </select>
+        <select name="drink" id="drink">
+            <option th:each="drink : ${drinks}" th:value="${drink}" th:text="${drink}"></option>
+        </select>
+        <button type="submit">Feed</button>
+    </form>
+
+</div>
+
+</body>
+</html>

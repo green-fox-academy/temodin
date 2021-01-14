@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GFC - Trick Center</title>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li><a th:href="'/index?loginname=' + ${name}">Information</a></li>
+        <li><a th:href="'/foodstore?loginname=' + ${name}">Food Store</a></li>
+        <li><a th:href="'/trickcenter?loginname=' + ${name}">Trick Center</a></li>
+        <li><a th:href="'/actionhistory?loginname=' + ${name}">Action History</a></li>
+    </ul>
+    <form th:action="'/learn?loginname=' + ${name}" method="post" >
+        <select name="learn">
+            <option th:each="trick : ${tricks}" th:value="${trick}" th:text="${trick}"></option>
+        </select>
+        <button type="submit">Learn</button>
+    </form>
+
+</div>
+
+</body>
+</html>

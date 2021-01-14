@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PFC - Login</title>
+</head>
+<body>
+<h1>Welcome to Programmer Fox Club</h1>
+
+<p>Please provide a name, so you can associate it to your pet!</p>
+<form action="/login" method="post">
+    <label for="login-name"></label>
+    <input type="text" id="login-name" name="loginname">
+    <button type="submit">GO</button>
+</form>
+<br>
+<p>You don't have a fox yet?! Create one!</p>
+<form action="/create" method="post">
+    <label for="new-name"></label>
+    <input type="text" id="new-name" name="newname">
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>
