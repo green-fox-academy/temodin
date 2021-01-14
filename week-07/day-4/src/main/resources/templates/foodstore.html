@@ -7,12 +7,12 @@
 <body>
 <div class="container">
     <ul>
-        <li><a th:href="'/index?loginname=' + ${name}">Information</a></li>
-        <li><a th:href="'/foodstore?loginname=' + ${name}">Food Store</a></li>
-        <li><a th:href="'/trickcenter?loginname=' + ${name}">Trick Center</a></li>
-        <li><a th:href="'/actionhistory?loginname=' + ${name}">Action History</a></li>
+        <li><a th:href="'/index?name=' + ${urlname}">Information</a></li>
+        <li><a th:href="'/foodstore?name=' + ${urlname}">Food Store</a></li>
+        <li><a th:href="'/trickcenter?name=' + ${urlname}">Trick Center</a></li>
+        <li><a th:href="'/login'">Login</a></li>
     </ul>
-    <form th:action="'/feed?loginname=' + ${name}" method="post" >
+    <form th:action="'/feed?name=' + ${urlname}" method="post" >
         <select name="food" id="food" >
             <option th:each="food : ${foods}" th:value="${food}" th:text="${food}"></option>
         </select>

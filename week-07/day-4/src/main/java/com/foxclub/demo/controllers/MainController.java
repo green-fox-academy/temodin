@@ -24,25 +24,18 @@ public class MainController {
         this.foxService = foxService;
     }
 
-    public String encode(String value) throws UnsupportedEncodingException {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-    }
-
-    public String decode(String value) throws UnsupportedEncodingException {
-        return URLDecoder.decode(value, StandardCharsets.UTF_8.toString());
-    }
-
 
     @GetMapping("/index")
-    public String getIndex(@RequestParam(required = false) String loginname, Model model) {
+    public String getIndex(@RequestParam(required = false) String name, Model model) {
         try {
-            Fox currentFox = foxService.getFox(decode(loginname));
+            Fox currentFox = foxService.getFox(name);
             model.addAttribute("name", currentFox.getName());
+            model.addAttribute("urlname", currentFox.getUrlEncodedName());
             model.addAttribute("food", currentFox.getFood());
             model.addAttribute("drink", currentFox.getDrink());
             model.addAttribute("trickCount", currentFox.getTricks().size());
             model.addAttribute("tricks", currentFox.getTricks());
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             return "redirect:/login";
         }
         return "index";
@@ -54,53 +47,51 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String sendLogin(@RequestParam String loginname) {
-        Fox currentFox = foxService.getFox(loginname);
+    public String sendLogin(@RequestParam String name) {
+        Fox currentFox = foxService.getFox(name);
         if (currentFox == null) {
             return "redirect:/login";
         } else
-            return "redirect:/index?loginname=" + currentFox.getName();
+            return "redirect:/index?name=" + currentFox.getUrlEncodedName();
     }
 
     @PostMapping("/create")
-    public String createLogin(@RequestParam String newname) throws UnsupportedEncodingException {
+    public String createLogin(@RequestParam String newname) {
         foxService.addFox(newname);
         Fox currentFox = foxService.getFox(newname);
-        return "redirect:/index?loginname=" + encode(currentFox.getName());
+        return "redirect:/index?name=" + currentFox.getUrlEncodedName();
     }
 
     @GetMapping("/foodstore")
-    public String getFoodstore(@RequestParam String loginname, Model model) throws UnsupportedEncodingException {
-        Fox currentFox = foxService.getFox(decode(loginname));
+    public String getFoodstore(@RequestParam String name, Model model) {
+        Fox currentFox = foxService.getFox(name);
         model.addAttribute("name", currentFox.getName());
-        model.addAttribute("currentfood",currentFox.getFood());
-        model.addAttribute("currentdrink",currentFox.getDrink());
+        model.addAttribute("urlname", currentFox.getUrlEncodedName());
         model.addAttribute("foods", foxService.getFoods());
         model.addAttribute("drinks", foxService.getDrinks());
         return "foodstore";
     }
 
     @PostMapping("/feed")
-    public String feed(@RequestParam String loginname, String food, String drink) throws UnsupportedEncodingException {
-        Fox currentFox = foxService.getFox(loginname);
-        currentFox.setFood(food);
-        currentFox.setDrink(drink);
-        return "redirect:/index?loginname=" + currentFox.getName();
+    public String feed(@RequestParam String name, String food, String drink) {
+        foxService.getFox(name).setFood(food);
+        foxService.getFox(name).setDrink(drink);
+        return "redirect:/index?name=" + foxService.encode(name);
     }
 
     @GetMapping("/trickcenter")
-    public String getTrickCenter(@RequestParam String loginname, Model model) throws UnsupportedEncodingException {
-        Fox currentFox = foxService.getFox(decode(loginname));
+    public String getTrickCenter(@RequestParam String name, Model model) {
+            Fox currentFox = foxService.getFox(name);
         model.addAttribute("name", currentFox.getName());
+        model.addAttribute("urlname", currentFox.getUrlEncodedName());
         model.addAttribute("tricks", foxService.getTricks());
         return "trickcenter";
     }
 
     @PostMapping("/learn")
-    public String learn(@RequestParam String loginname, String trick) throws UnsupportedEncodingException {
-        Fox currentFox = foxService.getFox(loginname);
-        currentFox.addTrick(trick);
-        return "redirect:/index?loginname=" + currentFox.getName();
+    public String learn(@RequestParam String name, String trick) {
+        foxService.getFox(name).setTricks(trick);
+        return "redirect:/index?name=" + foxService.encode(name);
     }
 
 

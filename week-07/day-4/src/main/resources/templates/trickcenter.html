@@ -7,18 +7,17 @@
 <body>
 <div class="container">
     <ul>
-        <li><a th:href="'/index?loginname=' + ${name}">Information</a></li>
-        <li><a th:href="'/foodstore?loginname=' + ${name}">Food Store</a></li>
-        <li><a th:href="'/trickcenter?loginname=' + ${name}">Trick Center</a></li>
-        <li><a th:href="'/actionhistory?loginname=' + ${name}">Action History</a></li>
+        <li><a th:href="'/index?name=' + ${urlname}">Information</a></li>
+        <li><a th:href="'/foodstore?name=' + ${urlname}">Food Store</a></li>
+        <li><a th:href="'/trickcenter?name=' + ${urlname}">Trick Center</a></li>
+        <li><a th:href="'/login'">Login</a></li>
     </ul>
-    <form th:action="'/learn?loginname=' + ${name}" method="post" >
-        <select name="learn">
+    <form th:action="'/learn?name=' + ${urlname}" method="post">
+        <select name="trick" id="trick">
             <option th:each="trick : ${tricks}" th:value="${trick}" th:text="${trick}"></option>
         </select>
         <button type="submit">Learn</button>
     </form>
-
 </div>
 
 </body>

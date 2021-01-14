@@ -2,24 +2,31 @@ package com.foxclub.demo.models;
 
 import lombok.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Getter
 @Setter
 
 public class Fox {
 
-    @NonNull
     private String name;
+    private String urlEncodedName;
     private List<String> tricks = new ArrayList<>();
     private String food = "dirt";
     private String drink = "mud";
 
-    public void addTrick (String trick) {
+    public Fox(String name) {
+        this.name = name;
+    }
+
+    public void setTricks (String trick) {
         this.tricks.add(trick);
     }
+
 
 
 }

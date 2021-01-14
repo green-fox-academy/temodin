@@ -27,12 +27,12 @@ public class FoxService {
 
     public void addFox(String name) {
         Fox newFox = new Fox(name);
+        newFox.setUrlEncodedName(encode(name));
         //currentFox = newFox.getName();
         this.foxes.add(newFox);
     }
 
     public Fox getFox(String name) {
-
         return foxes.stream().filter(f -> f.getName().equals(name)).findAny().orElse(null);
     }
 
@@ -42,6 +42,7 @@ public class FoxService {
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
     }
+
     public List<String> getDrinks() {
         return Arrays.stream(Drinks.values())
                 .map(Enum::toString)
@@ -52,7 +53,33 @@ public class FoxService {
     public List<String> getTricks() {
         return Arrays.stream(Tricks.values())
                 .map(Enum::toString)
-                .map(String::toLowerCase)
+                .map(s -> s.replace("_", " "))
                 .collect(Collectors.toList());
     }
+
+
+    public String decode(String stringToDecode) {
+        String decodedString;
+        try {
+            decodedString = URLDecoder.decode(stringToDecode, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            decodedString = stringToDecode;
+        }
+        return decodedString;
+    }
+
+    public String encode(String stringToEncode) {
+        String encodedString;
+        try {
+            encodedString = URLEncoder.encode(stringToEncode, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            encodedString = stringToEncode;
+        }
+        return encodedString;
+    }
+
+
+//    public void addTrick (String foxName, String trickName) {
+//        getFox(foxName).addTrick(trickName);
+//    }
 }
