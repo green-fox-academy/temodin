@@ -35,6 +35,7 @@ public class MainController {
             model.addAttribute("drink", currentFox.getDrink());
             model.addAttribute("trickCount", currentFox.getTricks().size());
             model.addAttribute("tricks", currentFox.getTricks());
+            model.addAttribute("isclown", currentFox.getIfClown());
         } catch (NullPointerException e) {
             return "redirect:/login";
         }
@@ -42,7 +43,9 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String getLogin() {
+    public String getLogin(Model model) {
+        model.addAttribute("errorMessage", foxService.getErrorMessage());
+        model.addAttribute("errorMessageType", foxService.getErrorMessageType());
         return "login";
     }
 
@@ -50,15 +53,25 @@ public class MainController {
     public String sendLogin(@RequestParam String name) {
         Fox currentFox = foxService.getFox(name);
         if (currentFox == null) {
+            foxService.setErrorMessage("Fox does not exist.");
+            foxService.setErrorMessageType("notfound");
             return "redirect:/login";
         } else
+            foxService.setErrorMessage(null);
             return "redirect:/index?name=" + currentFox.getUrlEncodedName();
     }
 
     @PostMapping("/create")
     public String createLogin(@RequestParam String newname) {
+        if (foxService.getFox(newname) != null || newname.equals("")) {
+            foxService.setErrorMessage("Fox already exists.");
+            foxService.setErrorMessageType("existing");
+            return "redirect:/login";
+        }
+        else
         foxService.addFox(newname);
         Fox currentFox = foxService.getFox(newname);
+        foxService.setErrorMessage(null);
         return "redirect:/index?name=" + currentFox.getUrlEncodedName();
     }
 

@@ -4,5 +4,6 @@ public enum Tricks {
     write_HTML,
     learn_java,
     jump_high,
-    be_funny
+    be_funny,
+    be_a_clown
 }

@@ -13,6 +13,7 @@
     <input type="text" id="login-name" name="name">
     <button type="submit">GO</button>
 </form>
+<p th:if="${errorMessage != null && errorMessageType == 'notfound'}" th:text="${errorMessage}"></p>
 <br>
 <p>You don't have a fox yet?! Create one!</p>
 <form action="/create" method="post">
@@ -20,5 +21,6 @@
     <input type="text" id="new-name" name="newname">
     <button type="submit">Create</button>
 </form>
+<p th:if="${errorMessage != null && errorMessageType == 'existing'}" th:text="${errorMessage}"></p>
 </body>
 </html>

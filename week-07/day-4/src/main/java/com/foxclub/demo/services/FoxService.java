@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 @Service
 public class FoxService {
     private List<Fox> foxes = new ArrayList<>();
-    //private String currentFox;
-
+    String errorMessage;
+    String errorMessageType;
     public void addFox(String name) {
         Fox newFox = new Fox(name);
-        newFox.setUrlEncodedName(encode(name));
+        //newFox.setUrlEncodedName(encode(name));
         //currentFox = newFox.getName();
         this.foxes.add(newFox);
     }
@@ -55,17 +55,6 @@ public class FoxService {
                 .map(Enum::toString)
                 .map(s -> s.replace("_", " "))
                 .collect(Collectors.toList());
-    }
-
-
-    public String decode(String stringToDecode) {
-        String decodedString;
-        try {
-            decodedString = URLDecoder.decode(stringToDecode, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            decodedString = stringToDecode;
-        }
-        return decodedString;
     }
 
     public String encode(String stringToEncode) {

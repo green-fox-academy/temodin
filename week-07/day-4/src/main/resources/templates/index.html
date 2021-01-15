@@ -12,7 +12,8 @@
         <li><a th:href="'/trickcenter?name=' + ${urlname}">Trick Center</a></li>
         <li><a th:href="'/login'">Login</a></li>
     </ul>
-    <img src="greenfox.png" alt="green fox">
+    <img th:if="${isclown == false}" th:src="'greenfox.png'" th:alt="'green fox'">
+    <img th:if="${isclown == true}" th:src="'foxclown.gif'" th:alt="'clown fox'">
     <p th:text="'Hello, I am ' + ${name} + '. Currently living on ' + ${food} + ' and ' + ${drink} + '. I know ' + ${trickCount} + ' trick(s).'"></p>
     <h1>Known tricks</h1>
     <ul th:if="${trickCount != 0}" th:each="trick: ${tricks}">
