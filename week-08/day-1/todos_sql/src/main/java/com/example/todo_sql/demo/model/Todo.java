@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 
 public class Todo {
    @Id

@@ -19,6 +19,16 @@
         <td th:text="${todo.title}"></td>
         <td th:text="${todo.urgent}"></td>
         <td th:text="${todo.done}"></td>
+        <td>
+            <form th:action="'/' + ${todo.id} + '/delete'" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    <td>
+        <form th:action="'/' + ${todo.id} + '/edit'">
+            <button type="submit">Edit</button>
+        </form>
+    </td>
 </tr>
     </table>
 </head>
