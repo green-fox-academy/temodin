@@ -7,29 +7,39 @@
     <a href="/newtodo">Add new todo</a>
     <br>
     <a href="/?done=false">Show undone only</a>
+    <form action="/search-todo" method="post">
+        <input type="text" name="keyword" placeholder="search for...">
+        <select name="field">
+            <option value="title">title</option>
+            <option value="description">description</option>
+        </select>
+        <button type="submit">search</button>
+    </form>
     <table>
-    <tr>
-        <th>ID</th>
-        <th>ACTION</th>
-        <th>URGENT</th>
-        <th>DONE</th>
-    </tr>
-<tr th:each="todo : ${todos}">
-        <td th:text="${todo.id}"></td>
-        <td th:text="${todo.title}"></td>
-        <td th:text="${todo.urgent}"></td>
-        <td th:text="${todo.done}"></td>
-        <td>
-            <form th:action="'/' + ${todo.id} + '/delete'" method="post">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    <td>
-        <form th:action="'/' + ${todo.id} + '/edit'">
-            <button type="submit">Edit</button>
-        </form>
-    </td>
-</tr>
+        <tr>
+            <th>ID</th>
+            <th>ACTION</th>
+            <th>DESCRIPTION</th>
+            <th>URGENT</th>
+            <th>DONE</th>
+        </tr>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.description}"></td>
+            <td th:text="${todo.urgent}"></td>
+            <td th:text="${todo.done}"></td>
+            <td>
+                <form th:action="'/' + ${todo.id} + '/delete'" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="'/' + ${todo.id} + '/edit'">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+        </tr>
     </table>
 </head>
 <body>

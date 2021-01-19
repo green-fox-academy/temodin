@@ -3,6 +3,7 @@ package com.example.todo_sql.demo.controller;
 
 import com.example.todo_sql.demo.model.Todo;
 import com.example.todo_sql.demo.repository.TodoRepository;
+import com.example.todo_sql.demo.service.TodoService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class TodoController {
 
     TodoRepository todoRepository;
+    TodoService todoService;
 
     @Autowired
-    public TodoController(TodoRepository todoRepository) {
+    public TodoController(TodoRepository todoRepository, TodoService todoService) {
         this.todoRepository = todoRepository;
+        this.todoService = todoService;
     }
 
 
@@ -34,8 +37,10 @@ public class TodoController {
     }
 
     @PostMapping("/add-todo")
-    public String addToDo(String title) {
-        todoRepository.save(new Todo(title));
+    public String addToDo(String title, String description, Boolean urgent, Boolean done) {
+        urgent = urgent == null? false:true;
+        done = done == null? false:true;
+        todoRepository.save(Todo.builder().title(title).description(description).urgent(urgent).done(done).build());
         return "redirect:/";
     }
 
@@ -70,15 +75,32 @@ public class TodoController {
         }
         model.addAttribute("id", todo.getId());
         model.addAttribute("title", todo.getTitle());
+        model.addAttribute("description", todo.getDescription());
         model.addAttribute("urgent", todo.getUrgent());
         model.addAttribute("done", todo.getDone());
         return "edittodo";
     }
 
     @PostMapping("/{id}/edit-todo")
-    public String postEditToDo(@PathVariable long id, String title, Boolean urgent, Boolean done) {
-        todoRepository.save(new Todo(id, title, urgent, done));
+    public String postEditToDo(@PathVariable long id, String title, String description, Boolean urgent, Boolean done) {
+        urgent = urgent == null? false:true;
+        done = done == null? false:true;
+        todoRepository.save(Todo.builder().id(id).title(title).description(description).urgent(urgent).done(done).build());
         return "redirect:/";
+    }
+
+    @PostMapping("/search-todo")
+    public String searchTodo (String field, String keyword, Model model) {
+        //todoService.setSearchedTodos(todoService.searchTodos(field,keyword));
+        //return "search";
+        return "redirect:/search?field=" + field + "&keyword=" + keyword;
+    }
+
+    @GetMapping("/search")
+    public String list(Model model, @RequestParam String field, @RequestParam String keyword) {
+        List<Todo> todos = new ArrayList<>();
+        model.addAttribute("todos", todoService.searchTodos(field,keyword));
+        return "todolist";
     }
 
 }
