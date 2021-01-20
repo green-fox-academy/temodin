@@ -3,46 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDo CRUD app</title>
-    <h1>Todos for today:</h1>
-    <a href="/newtodo">Add new todo</a>
-    <br>
-    <a href="/?done=false">Show undone only</a>
-    <form action="/search-todo" method="post">
-        <input type="text" name="keyword" placeholder="search for...">
-        <select name="field">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="d-flex justify-content-center">
+    <h1>Todos for today</h1>
+</div>
+<div class="d-flex justify-content-center">
+    <a href="/newtodo" class="btn btn-info m-2">Add new todo</a>
+    <a href="/?done=false" class="btn btn-danger  m-2">Show undone only</a>
+    <form action="/search-todo" method="post" class="form-inline">
+        <input type="text" name="keyword" placeholder="search for..." class="form-control  m-2">
+        <select name="field" class="form-control m-2">
             <option value="title">title</option>
             <option value="description">description</option>
         </select>
-        <button type="submit">search</button>
+        <button type="submit" class="btn btn-primary m-2">search</button>
     </form>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>ACTION</th>
-            <th>DESCRIPTION</th>
-            <th>URGENT</th>
-            <th>DONE</th>
-        </tr>
-        <tr th:each="todo : ${todos}">
-            <td th:text="${todo.id}"></td>
-            <td th:text="${todo.title}"></td>
-            <td th:text="${todo.description}"></td>
-            <td th:text="${todo.urgent}"></td>
-            <td th:text="${todo.done}"></td>
-            <td>
-                <form th:action="'/' + ${todo.id} + '/delete'" method="post">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-            <td>
-                <form th:action="'/' + ${todo.id} + '/edit'">
-                    <button type="submit">Edit</button>
-                </form>
-            </td>
-        </tr>
-    </table>
-</head>
-<body>
+</div>
 
+<table class="table m-3">
+    <tr>
+        <th>ID</th>
+        <th>ACTION</th>
+        <th>DESCRIPTION</th>
+        <th>URGENT</th>
+        <th>DONE</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="todo : ${todos}">
+        <td th:text="${todo.id}"></td>
+        <td th:text="${todo.title}"></td>
+        <td th:text="${todo.description}"></td>
+        <td th:text="${todo.urgent}"></td>
+        <td th:text="${todo.done}"></td>
+        <td>
+            <form th:action="'/' + ${todo.id} + '/delete'" method="post">
+                <button type="submit" class="btn btn-danger" >Delete</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="'/' + ${todo.id} + '/edit'">
+                <button type="submit" class="btn btn-warning">Edit</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 </body>
 </html>

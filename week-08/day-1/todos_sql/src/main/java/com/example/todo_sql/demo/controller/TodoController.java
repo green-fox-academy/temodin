@@ -82,10 +82,11 @@ public class TodoController {
     }
 
     @PostMapping("/{id}/edit-todo")
-    public String postEditToDo(@PathVariable long id, String title, String description, Boolean urgent, Boolean done) {
-        urgent = urgent == null? false:true;
-        done = done == null? false:true;
-        todoRepository.save(Todo.builder().id(id).title(title).description(description).urgent(urgent).done(done).build());
+    public String postEditToDo(@PathVariable long id, @ModelAttribute Todo todo) {
+        //urgent = urgent == null? false:true;
+        //done = done == null? false:true;
+        //todoRepository.save(Todo.builder().id(id).title(title).description(description).urgent(urgent).done(done).build());
+        todoRepository.save(todo);
         return "redirect:/";
     }
 
