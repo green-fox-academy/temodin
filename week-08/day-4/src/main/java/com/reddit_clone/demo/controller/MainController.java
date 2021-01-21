@@ -25,6 +25,8 @@ public class MainController {
     public String getIndex (Model model, @RequestParam(required = false, defaultValue = "0") Integer currentPage) {
        model.addAttribute("postList",postService.getPage(currentPage));
        model.addAttribute("currentPage",currentPage);
+       model.addAttribute("pageCount", postService.getPageCount());
+        System.out.println(postService.getNum());
         return "index";
     }
 
@@ -46,11 +48,7 @@ public class MainController {
         } else {return "redirect:/";} // add here a failed requestparam
     }
 
-//    @GetMapping ("/turn-page")
-//    public String turnPage (Model model, RequestParam) {
-//        model.addAttribute("postList",postService.getPage(1));
-//        return "index";
-//    }
+
 
 
 }

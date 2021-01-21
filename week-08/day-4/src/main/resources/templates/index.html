@@ -24,11 +24,14 @@
         </tr>
     </table>
     <div class="d-flex justify-content-center">
-        <a th:href="'/index?currentPage=' + ${currentPage -1}"><</a>
+        <span th:if="${currentPage > 0}">
+            <a th:href="'/index?currentPage=' + ${currentPage -1}"><</a>
+        </span>
         <span th:text="${currentPage+1}"></span>
-        <a th:href="'/index?currentPage=' + ${currentPage +1}">
-            >
-        </a>
+        <span th:if="${currentPage+1 < pageCount}">
+            <a th:href="'/index?currentPage=' + ${currentPage +1}">></a>
+        </span>
+
     </div>
 </div>
 </body>

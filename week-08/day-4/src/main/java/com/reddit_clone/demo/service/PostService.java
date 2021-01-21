@@ -57,4 +57,12 @@ public class PostService {
         return postRepository.findAllPostsWithPagination(pageable);
     }
 
+    public Integer getPageCount () {
+        return (int) (Math.ceil(postRepository.count() / 5d));
+    }
+
+    public Long getNum () {
+        return postRepository.count();
+    }
+
 }
