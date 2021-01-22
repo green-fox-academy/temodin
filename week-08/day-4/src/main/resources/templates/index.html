@@ -9,6 +9,9 @@
 <body>
 <div class="container">
     <a th:href="@{/new}" class="btn btn-primary mt-3">Submit new post</a>
+    <a th:href="@{/add-login}" class="btn btn-primary mt-3">Login</a>
+    <span th:if="${userName} == null" th:text="'No one is logged in.'"></span>
+    <span th:unless="${userName} == null" th:text="'Hello, ' + ${userName} + '!'"></span>
     <div class="d-flex justify-content-center mt-6">
         <h1>Trending posts</h1>
     </div>
@@ -16,8 +19,8 @@
     <table class="table text-center font-weight-bold mt-3">
         <tr th:each="post : ${postList}">
             <td th:text="${post.score}" style="width: 5%"></td>
-            <td style="width: 5%"><a th:href="'/vote?id=' +${post.id} + '&value=1'">+</a></td>
-            <td style="width: 5%"><a th:href="'/vote?id=' +${post.id} + '&value=-1'">-</a></td>
+            <td style="width: 5%"><a th:href="'/vote?id=' +${post.id} + '&value=1&page=' + ${currentPage}">+</a></td>
+            <td style="width: 5%"><a th:href="'/vote?id=' +${post.id} + '&value=-1&page='  + ${currentPage}">-</a></td>
             <td style="width: 65%" class="text-left font-weight-normal"><a th:href="${post.getValidUrl()}"
                                                                            th:text="${post.title}"></a></td>
             <td th:text="${post.getCreatedString}" style="width: 20%" class="font-weight-normal"></td>

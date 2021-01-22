@@ -3,10 +3,7 @@ package com.reddit_clone.demo.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,21 +23,27 @@ public class Post {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm");
     private Timestamp created = new Timestamp(System.currentTimeMillis());
 
-    public Post(String title, String url) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Post(String title, String url, Long userId) {
         this.title = title;
         this.url = url;
+        this.user.setId(userId);
     }
 
     public Post() {
     }
 
-    public String getCreatedString () {
 
-        return (created == null)? "" : sdf.format(created);
+    public String getCreatedString() {
+
+        return (created == null) ? "" : sdf.format(created);
     }
 
-    public String getValidUrl () {
-        return (url.substring(0,4).equals("http"))? url : "http://" + url;
+    public String getValidUrl() {
+        return (url.substring(0, 4).equals("http")) ? url : "http://" + url;
     }
 
 }
