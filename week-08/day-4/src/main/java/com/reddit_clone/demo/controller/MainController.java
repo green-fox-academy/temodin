@@ -44,8 +44,9 @@ public class MainController {
 
     @PostMapping("/add-post")
     public String addPost(@ModelAttribute Post post) {
-       // postService.addPost(post);
+
         postService.addPost(new Post(post.getTitle(), post.getUrl(), userService.getActiveUser().getId()));
+
         return "redirect:/";
     }
 

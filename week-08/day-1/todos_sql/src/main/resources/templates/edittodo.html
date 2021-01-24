@@ -5,13 +5,15 @@
     <title>Edit ToDo</title>
 </head>
 <body>
-<p th:text="${id}"></p>
-<!--<p th:text="${urgent}"></p>-->
-<!--<p th:text="${done}"></p>-->
 <form th:action="'/' + ${id} + '/edit-todo'" method="post">
-    <input type="text" name="title" th:value="${title}">
-    <input name="urgent" th:type="checkbox" th:checked="${urgent}">
-    <input name="done" th:type="checkbox" th:checked="${done}">
+    <label for="title">Title</label>
+    <input id="title" name="title" th:value="${title}">
+    <label for="description">Title</label>
+    <input id="description" name="description" th:value="${description}">
+    <label for="urgent">Urgent</label>
+    <input id="urgent" name="urgent" type="checkbox" th:checked="${urgent}">
+    <label for="done">Done</label>
+    <input id="done" name="done" type="checkbox" th:checked="${done}">
     <button type="submit">edit</button>
 </form>
 
