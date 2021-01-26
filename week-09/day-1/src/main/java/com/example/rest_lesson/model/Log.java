@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor

@@ -4,18 +4,24 @@ package com.example.rest_lesson.controller;
 import com.example.rest_lesson.LogRepository;
 import com.example.rest_lesson.model.*;
 import com.example.rest_lesson.model.Error;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.json.JSONParser;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
     LogRepository logRepository;
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public RestController(LogRepository logRepository) {
@@ -24,9 +30,7 @@ public class RestController {
 
     @GetMapping("doubling")
     public ResponseEntity<?> getDoubleInt(@RequestParam(required = false) Integer input) {
-        JSONParser parser = new JSONParser();
-
-        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"doubling",null));
+        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"doubling","input=" + input.toString()));
         if (input != null) {
             return new ResponseEntity<>(new DoubleInt(input), HttpStatus.OK);
         } else return new ResponseEntity<>(new Error("Please provide an input!"), HttpStatus.OK);
@@ -34,6 +38,7 @@ public class RestController {
 
     @GetMapping("greeter")
     public ResponseEntity<?> getGreeting(@RequestParam(required = false) String name, @RequestParam(required = false) String title) {
+        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"greeter","name=" + name + ", title=" + title));
         if (name == null && title == null) {
             return new ResponseEntity<>(new Error("Please provide a name and a title!"), HttpStatus.BAD_REQUEST);
         } else if (name == null) {
@@ -45,11 +50,18 @@ public class RestController {
 
     @GetMapping("appenda/{appendable}")
     public ResponseEntity<?> appendA(@PathVariable String appendable) {
+        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"appendable","appendable=" + appendable));
         return new ResponseEntity<>(new Appended(appendable), HttpStatus.OK);
     }
 
     @PostMapping("dountil/{action}")
-    public ResponseEntity<?> doUntil(@PathVariable(required = false) String action, @RequestBody InputNumber inputNumberDTO) {
+    public ResponseEntity<?> doUntil(@PathVariable(required = false) String action, @RequestBody InputNumber inputNumberDTO) throws JsonProcessingException {
+        //logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"dountil","action="+ action +", until=" +inputNumberDTO.getUntil()));
+
+        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"dountil",mapper.writeValueAsString(inputNumberDTO)));
+
+        //ModelMapper mapper =new ModelMapper();
+        //String data = inputNumberDTO.getB
         if (action.equals("sum")) {
             Integer sumUntil = 0;
             for (int i = 1; i < inputNumberDTO.getUntil() + 1; i++) {
@@ -67,7 +79,10 @@ public class RestController {
     }
 
     @PostMapping("arrays")
-    public ResponseEntity<?> arrayHandler (@RequestBody (required = false) ArrayHandler arrayHandler) {
+    public ResponseEntity<?> arrayHandler (@RequestBody (required = false) ArrayHandler arrayHandler) throws JsonProcessingException {
+        //logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"arrays","what="+ arrayHandler.getWhat() +", numbers=" +arrayHandler.getNumbers().toString()));
+        logRepository.save(new Log(new Timestamp(System.currentTimeMillis()),"dountil",mapper.writeValueAsString(arrayHandler)));
+
         if (arrayHandler == null) {
             return new ResponseEntity<>(new Error("Please send a json, Jackson!"),HttpStatus.NOT_FOUND);}
         else if (arrayHandler.getNumbers().size() == 0) {
@@ -85,6 +100,13 @@ public class RestController {
 
         return new ResponseEntity<>(new Error("Please provide what to do with the numbers!"),HttpStatus.NOT_FOUND);
 
+    }
+
+    @GetMapping ("log")
+    public LogSummary getLogs () {
+        List<Log> logList = (List<Log>) logRepository.findAll();
+        LogSummary logSummary = new LogSummary(logList,logList.size());
+        return logSummary;
     }
 
 }
