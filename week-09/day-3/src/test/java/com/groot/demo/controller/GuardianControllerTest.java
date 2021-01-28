@@ -18,6 +18,7 @@ package com.groot.demo.controller;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.groot.demo.model.Message;
 import com.groot.demo.model.Response;
@@ -204,7 +205,18 @@ public class GuardianControllerTest {
                 .andExpect(jsonPath("$.error",is("Missing parameter!")));
     }
 
-
-
+    @Test
+    public void shipStatusFillResponse () throws Exception {
+        mockMvc.perform(get("/rocket/fill")
+                .param("caliber",".50")
+                .param("amount","5000"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.received",is(".50")))
+                .andExpect(jsonPath("$.amount",is(5000)))
+                .andExpect(jsonPath("$.shipstatus",is("40%")))
+                .andExpect(jsonPath("$.ready",is(false)));
+    }
 
 }
+
