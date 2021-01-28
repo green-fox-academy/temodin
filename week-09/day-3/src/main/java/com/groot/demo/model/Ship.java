@@ -11,12 +11,8 @@ public class Ship {
     private Integer shipStatus = 0;
     private Boolean ready = false;
 
-    public Boolean getReady() {
-        return ready;
-    }
-
     public void setReady() {
-        if (this.shipStatus > 100) {
+        if (this.shipStatus == 100) {
             this.ready = true;
         }
     }
@@ -48,13 +44,22 @@ public class Ship {
     public String getShipStatus() {
         if (shipStatus == 0) {
             return "empty";
+        } else if (shipStatus == 100) {
+            return "full";
+        } else if (shipStatus > 100) {
+            return "overloaded";
+        } else {
+            return shipStatus.toString() + "%";
         }
-        return shipStatus.toString() + "%";
     }
 
-    public void setShipStatus() {
+    public Integer showTotalCargo() {
+        return this.caliber25 + this.caliber30 + this.caliber50;
+    }
 
-        this.shipStatus = (this.caliber25 + this.caliber30 + this.caliber50) / 12500;
+
+    public void setShipStatus() {
+        shipStatus = (int) (showTotalCargo() / 12500D * 100);
     }
 
     public void fillShip(String caliber, Integer amount) {
@@ -67,7 +72,12 @@ public class Ship {
                 break;
             case ".50":
                 this.caliber50 += amount;
-                setShipStatus();
         }
+        setShipStatus();
+        setReady();
+    }
+
+    public Boolean getReady() {
+        return ready;
     }
 }

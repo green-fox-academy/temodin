@@ -138,6 +138,72 @@ public class GuardianControllerTest {
                 .andExpect(jsonPath("$.error", is("Wrong input.")));
     }
 
+    @Test
+    public void shipStatusEmpty () throws Exception {
+
+        mockMvc.perform(get("/rocket"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.caliber25",is(0)))
+                .andExpect(jsonPath("$.caliber30",is(0)))
+                .andExpect(jsonPath("$.caliber50",is(0)))
+                .andExpect(jsonPath("$.shipstatus",is("empty")))
+                .andExpect(jsonPath("$.ready",is(false)));
+    }
+
+    @Test
+    public void shipStatusFilled () throws Exception {
+        mockMvc.perform(get("/rocket/fill")
+                .param("caliber",".50")
+                .param("amount","5000"));
+        mockMvc.perform(get("/rocket"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.caliber25",is(0)))
+                .andExpect(jsonPath("$.caliber30",is(0)))
+                .andExpect(jsonPath("$.caliber50",is(5000)))
+                .andExpect(jsonPath("$.shipstatus",is("40%")))
+                .andExpect(jsonPath("$.ready",is(false)));
+    }
+
+    @Test
+    public void shipStatusFilledFull () throws Exception {
+        mockMvc.perform(get("/rocket/fill")
+                .param("caliber",".50")
+                .param("amount","12500"));
+        mockMvc.perform(get("/rocket"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.caliber25",is(0)))
+                .andExpect(jsonPath("$.caliber30",is(0)))
+                .andExpect(jsonPath("$.caliber50",is(12500)))
+                .andExpect(jsonPath("$.shipstatus",is("full")))
+                .andExpect(jsonPath("$.ready",is(true)));
+    }
+
+    @Test
+    public void shipStatusFilledOver () throws Exception {
+        mockMvc.perform(get("/rocket/fill")
+                .param("caliber",".50")
+                .param("amount","13500"));
+        mockMvc.perform(get("/rocket"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.caliber25",is(0)))
+                .andExpect(jsonPath("$.caliber30",is(0)))
+                .andExpect(jsonPath("$.caliber50",is(13500)))
+                .andExpect(jsonPath("$.shipstatus",is("overloaded")))
+                .andExpect(jsonPath("$.ready",is(false)));
+    }
+
+    @Test
+    public void shipStatusNoParam () throws Exception {
+        mockMvc.perform(get("/rocket/fill"))
+                        .andExpect(status().is4xxClientError())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.error",is("Missing parameter!")));
+    }
+
 
 
 

@@ -32,18 +32,21 @@ public class GuardianController {
     public ResponseEntity<?> calcSpeed(@RequestParam(required = false) Integer time, @RequestParam(required = false) Integer distance) {
         if (time == null || distance == null || distance < 0 || time <= 0) {
             return new ResponseEntity<>(new Error("Wrong input."), HttpStatus.BAD_REQUEST);
-        }
-        else return new ResponseEntity<>(new Speed(distance,time),HttpStatus.OK);
+        } else return new ResponseEntity<>(new Speed(distance, time), HttpStatus.OK);
     }
 
-    @GetMapping ("/rocket")
-    public ResponseEntity<Ship> getShipCargo () {
-        return new ResponseEntity<>(myShip,HttpStatus.OK);
+    @GetMapping("/rocket")
+    public ResponseEntity<Ship> getShipCargo() {
+        return new ResponseEntity<>(myShip, HttpStatus.OK);
     }
 
     @GetMapping("/rocket/fill")
-    public ResponseEntity<?> fillShip (@RequestParam (required = false) String caliber, @RequestParam (required = false) Integer amount) {
-
+    public ResponseEntity<?> fillShip(@RequestParam(required = false) String caliber, @RequestParam(required = false) Integer amount) {
+        if (caliber == null || amount == null) {
+            return new ResponseEntity<>(new Error("Missing parameter!"), HttpStatus.BAD_REQUEST);
+        } else
+            myShip.fillShip(caliber, amount);
+        return new ResponseEntity<>(new ShipFill(caliber, amount, myShip.getShipStatus(), myShip.getReady()), HttpStatus.OK);
     }
 
 
