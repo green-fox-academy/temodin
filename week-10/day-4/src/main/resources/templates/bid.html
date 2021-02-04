@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Bid</title>
+</head>
+<body>
+<div>
+    <h1 th:text="${auction.title}"></h1>
+    <p th:text="'Current highest bid: ' + ${maxamount}"></p>
+    <h2 th:if="${isAuctionOver}">The auction is over!</h2>
+    <div th:unless="${isAuctionOver}">
+        <h2>Bid</h2>
+        <form th:action="@{'/'+${auction.id}}" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" th:value="${name}">
+            <br>
+            <br>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" th:value="${amount}">
+            <br>
+            <br>
+            <button type="submit">Bid</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

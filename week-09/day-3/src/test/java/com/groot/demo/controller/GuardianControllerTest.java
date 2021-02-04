@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.groot.demo.model.Message;
 import com.groot.demo.model.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,12 @@ public class GuardianControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @BeforeEach
+    public void mockNewMvc () {
+       mockMvc.
+    }
+
 
     @Test
     public void postGrootBack_successful() throws Exception {
