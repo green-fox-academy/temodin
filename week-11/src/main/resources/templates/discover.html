@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Discover</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="../">Back to main</a>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Overview</th>
+        <th>Vote Average</th>
+        <th>Vote Count</th>
+        <th>Release Date</th>
+    </tr>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.overview}"></td>
+        <td th:text="${movie.voteAverage}"></td>
+        <td th:text="${movie.voteCount}"></td>
+        <td th:text="${movie.releasedDate}"></td>
+    </tr>
+</table>
+</body>
+</html>

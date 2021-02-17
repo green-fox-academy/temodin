@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -40,5 +42,19 @@ public class Controller {
     @GetMapping("/genres")
     public ResponseEntity<Genres> getGenres () throws IOException {
         return new ResponseEntity<>(movieService.callGenres(), HttpStatus.OK);
+    }
+
+    @GetMapping("/discover")
+    public String getDiscover (Model model) {
+        //List<Movie> movies = movieService.getDiscover().getResults();
+        List<Movie> movies = movieService.getDiscoveredMovies();
+        model.addAttribute("movies", movies);
+        return "discover";
+    }
+
+    @PostMapping("/discover-year")
+    public String postDiscover (Integer year) {
+        movieService.callDiscover(year);
+        return "redirect:/discover";
     }
 }

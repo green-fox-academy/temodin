@@ -2,9 +2,16 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
 </head>
 <body>
-<p>welcome</p>
+<h1>Welcome to this little senseless movie application!</h1>
+<p>Choose from the below options</p>
+<p><a href="/genres">Show movie genres in JSON (least interesting)</a></p>
+<form action="/discover-year" method="post">
+    <p>Show me the top movies from this year</p>
+    <input type="number" name="year">
+    <button type="submit">Submit</button>
+</form>
 </body>
 </html>

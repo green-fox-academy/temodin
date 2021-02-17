@@ -4,55 +4,77 @@ import com.example.demo.model.Discover;
 import com.example.demo.model.Genres;
 import com.example.demo.api.MovieApi;
 import com.example.demo.model.Movie;
+import com.example.demo.model.MovieServiceGenerator;
+import com.example.demo.repository.MovieRepository;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+@Getter
 
 @Service
 public class MovieService {
+    private MovieRepository movieRepository;
+    private MovieApi movieApi = MovieServiceGenerator.createService(MovieApi.class);
+    private String movieApiKey = System.getenv("API_KEY");
+    private List<Movie> discoveredMovies = new ArrayList<>();
 
-    @Getter
+    @Autowired
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    MovieApi movieApi = retrofit.create(MovieApi.class);
-    String apiKey = System.getenv("API_KEY");
-
+    //get a single movie
     public Movie showMovie() throws IOException {
-        Call<Movie> call = movieApi.callMovie(3, apiKey);
+        Call<Movie> call = movieApi.callMovie(3, movieApiKey);
         return call.execute().body();
     }
 
+    //get genres list
     public Genres callGenres() throws IOException {
-        Call<Genres> call = movieApi.listGenres(apiKey);
+        Call<Genres> call = movieApi.listGenres(movieApiKey);
 
         Response<Genres> response = call.execute();
         return response.body();
-//        call.enqueue(new Callback<List<Genres>>() {
-//                         @Override
-//                         public void onResponse(Call<List<Genres>> call, Response<List<Genres>> response) {
-//                             if (response.isSuccessful()) {
-//                                 genreList = response.body();
-//                             } else {
-//                                 System.out.println("Request unsuccessful");
-//                             }
-//                         }
+    }
+
+    //get movie list from a specific year
+    public void callDiscover(Integer year) {
+        Call<Discover> call = movieApi.discover(movieApiKey, year, "vote_average.desc", 50);
+        try {
+           Discover discover = call.execute().body();
+            assert discover != null;
+            discoveredMovies = discover.getResults();
+            movieRepository.saveAll(discoveredMovies);
+        }
+        catch (IOException e) {
+            System.out.println("fuck");
+        }
+
+//        call.enqueue(new Callback<Discover>() {
+//            @Override
+//            public void onResponse(Call<Discover> call, Response<Discover> response) {
+//                if (response.isSuccessful()) {
+//                    Discover discover = response.body();
+//                    assert discover != null;
+//                    discoveredMovies = discover.getResults();
+//                } else {
+//                    System.out.println("Not successful");
+//                }
+//            }
 //
-//                         @Override
-//                         public void onFailure(Call<List<Genres>> call, Throwable t) {
-//                             System.out.println("Error");
-//                         }
-//
-//                     }
-//        );
+//            @Override
+//            public void onFailure(Call<Discover> call, Throwable t) {
+//                System.out.println(t);
+//            }
+//        })
+        ;
     }
 }

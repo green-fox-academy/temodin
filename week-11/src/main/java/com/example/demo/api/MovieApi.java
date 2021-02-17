@@ -14,7 +14,7 @@ public interface MovieApi {
     Call<Genres> listGenres (@Query("api_key") String apiKey);
 
     @GET("discover/movie")
-    Call<Discover> discover (@Query("api_key") String apiKey, @Query("year") Integer year);
+    Call<Discover> discover (@Query("api_key") String apiKey, @Query("primary_release_year") Integer year, @Query("sort_by") String criteria, @Query("vote_count.gte") Integer voteCount);
 
     @GET("movie/{movie_id}")
     Call<Movie> callMovie (@Path("movie_id") Integer movieId, @Query("api_key") String apiKey);

@@ -17,7 +17,7 @@ import java.util.List;
 public class Discover {
 
     public Integer page;
-    public List<Movie> results = new ArrayList<Movie>();
+    public List<Movie> results;
     @SerializedName("total_pages")
     public Integer totalPages;
     @SerializedName("total_results")
