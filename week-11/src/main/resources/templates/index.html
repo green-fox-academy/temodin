@@ -5,6 +5,10 @@
     <title>Main</title>
 </head>
 <body>
+<div>
+    <span th:text="'Welcome, ' + ${user}"></span>
+    <a href="/logout">Log out</a>
+</div>
 <h1>Welcome to this little senseless movie application!</h1>
 <p>Choose from the below options</p>
 <p><a href="/genres">Show movie genres in JSON (least interesting)</a></p>

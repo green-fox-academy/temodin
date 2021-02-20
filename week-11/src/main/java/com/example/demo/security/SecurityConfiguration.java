@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -36,22 +38,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/queriedmovies").hasRole("ADMIN")
-//                .antMatchers("/genres").hasAnyRole("USER", "ADMIN")
-//                .antMatchers("/discover*").permitAll()
-////                .antMatchers("/**").permitAll()
-//                .and().formLogin();
-        http.csrf().disable()
-        .authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.authorizeRequests()
+                .antMatchers("/queriedmovies").hasRole("ADMIN")
+                .antMatchers("/", "/discover*").hasAnyRole("USER", "ADMIN")
+                //.antMatchers("/discover-year").permitAll()
+                .antMatchers("/login*").permitAll()
+                .and().formLogin()
+                .loginPage("/login").loginProcessingUrl("/perform_login")
+                .failureUrl("/login?error=true")
+        ;
+
+        http.csrf().disable();
+//        http.csrf().disable()
+//        .authorizeRequests().antMatchers("/authenticate","/discover-year").permitAll().anyRequest().authenticated()
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
-    public PasswordEncoder getPasswordEncoder () {
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder getPasswordEncoder() {
+        //return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
+//
 
     @Bean
     @Override

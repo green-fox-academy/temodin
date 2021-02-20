@@ -1,18 +1,18 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Discover;
-import com.example.demo.model.Genres;
+import com.example.demo.model.*;
 import com.example.demo.api.MovieApi;
-import com.example.demo.model.Movie;
-import com.example.demo.model.MovieServiceGenerator;
 import com.example.demo.repository.MovieRepository;
+import com.example.demo.repository.UserRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.persistence.Column;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,15 @@ import java.util.List;
 @Service
 public class MovieService {
     private MovieRepository movieRepository;
+    private UserRepository userRepository;
     private MovieApi movieApi = MovieServiceGenerator.createService(MovieApi.class);
     private String movieApiKey = System.getenv("API_KEY");
     private List<Movie> discoveredMovies;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, UserRepository userRepository) {
         this.movieRepository = movieRepository;
+        this.userRepository = userRepository;
     }
 
     //get a single movie
@@ -86,10 +88,22 @@ public class MovieService {
                 System.out.println(t);
             }
         });
+
+
+        while(!call.isExecuted()){
+        }
         System.out.println(discoveredMovies.get(1).getTitle());
     }
 
     public List<Movie> getQueriedMovies () {
         return (List<Movie>) movieRepository.findAll();
+    }
+
+    public Boolean addUser (String user, String password) {
+       if (userRepository.findByUserName(user).isPresent()) {
+           return false;
+       }
+       userRepository.save(new User(1L,true,new BCryptPasswordEncoder().encode(password),"ROLE_USER",user));
+       return true;
     }
 }

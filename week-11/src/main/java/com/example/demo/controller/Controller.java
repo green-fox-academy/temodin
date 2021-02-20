@@ -8,18 +8,18 @@ import com.example.demo.security.MovieUserDetails;
 import com.example.demo.security.MovieUserDetailsService;
 import com.example.demo.service.MovieService;
 import com.example.demo.util.JwtUtil;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,8 +37,9 @@ public class Controller {
 
     @GetMapping("/")
     public String getIndex(Model model) throws IOException {
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         Movie movie = movieService.showMovie();
-        System.out.println(movie.getTitle());
+        model.addAttribute("user",loggedInUser.getName());
 //        movieService.callGenres();
 //        List<Genre> genreList =  movieService.getGenreList();
 //        model.addAttribute("genres",movieService.getGenreList());
@@ -86,5 +87,35 @@ public class Controller {
 final UserDetails userDetails = movieUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
     return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+
+    @GetMapping("/login")
+    public String getLogin (@RequestParam (required = false) Boolean error, @RequestParam (required = false) Integer register,  Model model) {
+        String regstatus = "";
+        if (register != null) {
+        switch (register) {
+            case 1: regstatus = "Username or password is missing"; break;
+            case 2: regstatus = "User already exists"; break;
+            case 3: regstatus = "User created, now you can log in.";
+        }
+        }
+        if (error == null) {error = false;}
+        model.addAttribute("error", error);
+        model.addAttribute("regstatus", regstatus);
+        return "/login";
+    }
+
+    @PostMapping ("register")
+    public String register (String newUser, String newPassword) {
+        Integer status;
+        if (newUser==null || newPassword==null) {
+            status = 1;
+        }
+        else if (!movieService.addUser(newUser, newPassword))
+        { status = 2; }
+        else status = 3;
+
+        return "redirect:/login?register=" + status;
+
     }
 }
