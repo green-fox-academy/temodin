@@ -50,44 +50,44 @@ public class MovieService {
     //get movie list from a specific year
     public void   callDiscover(Integer year) {
         final Call<Discover> call = movieApi.discover(movieApiKey, year, "vote_average.desc", 50);
-//        try {
-//           Discover discover = call.execute().body();
-//            assert discover != null;
-//            discoveredMovies = discover.getResults();
-//            movieRepository.saveAll(discoveredMovies);
-//        }
-//        catch (IOException e) {
-//            System.out.println("fuck");
-//        }
+        try {
+           Discover discover = call.execute().body();
+            assert discover != null;
+            discoveredMovies = discover.getResults();
+            movieRepository.saveAll(discoveredMovies);
+        }
+        catch (IOException e) {
+            System.out.println("fuck");
+        }
 
-        call.enqueue(new Callback<Discover>() {
-            @Override
-            public void onResponse(Call<Discover> call, Response<Discover> response) {
-
-                if (response.isSuccessful()) {
-                    System.out.println(response.headers());
-                    System.out.println(response.code());
-                    System.out.println(response.body());
-                    System.out.println(response.isSuccessful());
-                    //System.out.println(response.body().getResults().get(1).getTitle());
-                    //Discover discover = response.body();
-                    //System.out.println(discover.getResults().get(1).getTitle());
-                    //assert discover != null;
-                    //discoveredMovies = discover.getResults();
-                    assert response.body() != null;
-                    discoveredMovies = (response.body().getResults());
-                    System.out.println(discoveredMovies.get(1).getTitle());
-
-                } else {
-                    System.out.println("Not successful");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Discover> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
+//        call.enqueue(new Callback<Discover>() {
+//            @Override
+//            public void onResponse(Call<Discover> call, Response<Discover> response) {
+//
+//                if (response.isSuccessful()) {
+//                    System.out.println(response.headers());
+//                    System.out.println(response.code());
+//                    System.out.println(response.body());
+//                    System.out.println(response.isSuccessful());
+//                    //System.out.println(response.body().getResults().get(1).getTitle());
+//                    //Discover discover = response.body();
+//                    //System.out.println(discover.getResults().get(1).getTitle());
+//                    //assert discover != null;
+//                    //discoveredMovies = discover.getResults();
+//                    assert response.body() != null;
+//                    discoveredMovies = (response.body().getResults());
+//                    System.out.println(discoveredMovies.get(1).getTitle());
+//
+//                } else {
+//                    System.out.println("Not successful");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Discover> call, Throwable t) {
+//                System.out.println(t);
+//            }
+//        });
 
 
         while(!call.isExecuted()){
